@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Table JSON</title>
+</head>
+<body>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr class="tableInfo">
+                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="firstName">Имя</th>
+                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="lastName">Фамилия</th>
+                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="about">Описание</th>
+                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="eyeColor">Цвет глаз</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+            </tbody>
+        </table>
+        <div class="pagination">
+            <a class="changePage" onclick="changePage(-1)">Previous</a>
+            <p class="pageNumber">1</p>
+            <a class="changePage" onclick="changePage(+1)">Next</a>
+        </div>
+    </div>
+    
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div class="modalContainer">
+            Имя:<input type="text" name="fname" id="fname">
+            Фамилия:<input type="text" name="lname" id="lname">
+            Описание:<textarea type="text" name="about" id="about"></textarea>
+            Цвет глаз:<input type="text" name="color" id="color">
+            <button onClick="editRow()">Изменить строку</button>
+          </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
