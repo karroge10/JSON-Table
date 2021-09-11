@@ -10,10 +10,6 @@ let tableData;
 
 // Создаем таблицу с данными из файла data.json
 function buildTable(data){
-
-    // проверить нужно ли сортировать ...
-    //
-
     tableData = data
     for (let i = start; i < limit; i++){
         let row =   `<tr class="myBtn" onclick="openModal(this)">
@@ -26,7 +22,7 @@ function buildTable(data){
     }
 }
 
-// Получаем modal
+// Получаем модальное окно
 let modal = document.getElementById("myModal");
 let span = document.getElementsByClassName("close")[0];
 
@@ -67,7 +63,8 @@ window.onclick = function(event) {
   }
 }
 
-//
+// Если пользователь нажал на кнопку Previous то убавляем номер страницы на 1, если Next то прибавляем 1
+// Заменяем строки на следующие / прошлые 10 строк.
 changePage = (number) => {
     let page = parseInt(document.getElementsByClassName('pageNumber')[0].innerHTML)
 
@@ -86,9 +83,9 @@ changePage = (number) => {
         buildTable(tableData)
     }
 }
-span.onclick = function() {
-    modal.style.display = "none";
-  }
+
+// Сортируем колонку по нужному параметру, добавляем активный класс для отображения текущей сортировки
+// При повторном нажатии сортировка идет в обратную сторону
 sort = (param) => {
     let sortParameter = param.dataset.sort
     if (sortParameter === 'firstName' || sortParameter === 'lastName') {
@@ -115,7 +112,8 @@ sort = (param) => {
     });
     
     param.classList.add('active')
-    
+
+    // Возвращает на первую страницу с сортировкой
     table.replaceChildren()
     limit = 10
     start = 0
