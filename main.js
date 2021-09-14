@@ -48,6 +48,7 @@ editRow = () => {
     tableData[rIndex + (10 * (page - 1))].name.lastName = table.rows[rIndex].cells[1].innerHTML
     tableData[rIndex + (10 * (page - 1))].about = table.rows[rIndex].cells[2].innerHTML
     tableData[rIndex + (10 * (page - 1))].eyeColor = table.rows[rIndex].cells[3].innerHTML
+    document.getElementsByClassName('eyeColorColumn')[rIndex].style.backgroundColor = table.rows[rIndex].cells[3].innerHTML
     modal.style.display = "none";
 }
 
