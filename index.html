@@ -12,10 +12,26 @@
         <table class="table">
             <thead>
                 <tr class="tableInfo">
-                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="firstName">Имя</th>
-                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="lastName">Фамилия</th>
-                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="about">Описание</th>
-                    <th class="tableInfoHeader" onclick="sort(this)" data-sort="eyeColor">Цвет глаз</th>
+                    <th class="tableInfoHeader" data-sort="firstName">
+                        Имя<br>
+                        <a class="headerButton visButton" onclick="changeVisibility(this)">hide</a> | 
+                        <a class="headerButton sortButton" onclick="sort(this)">sort</a>
+                    </th>
+                    <th class="tableInfoHeader" data-sort="lastName">
+                        Фамилия<br>
+                        <a class="headerButton visButton" onclick="changeVisibility(this)">hide</a> | 
+                        <a class="headerButton sortButton" onclick="sort(this)">sort</a>
+                    </th>
+                    <th class="tableInfoHeader" data-sort="about">
+                        Описание<br>
+                        <a class="headerButton visButton" onclick="changeVisibility(this)">hide</a> | 
+                        <a class="headerButton sortButton" onclick="sort(this)">sort</a>
+                    </th>
+                    <th class="tableInfoHeader" data-sort="eyeColor">
+                        Цвет глаз<br>
+                        <a class="headerButton visButton" onclick="changeVisibility(this)">hide</a> | 
+                        <a class="headerButton sortButton" onclick="sort(this)">sort</a>
+                    </th>
                 </tr>
             </thead>
             <tbody id="myTable">
@@ -36,7 +52,7 @@
             Фамилия:<input type="text" name="lname" id="lname">
             Описание:<textarea type="text" name="about" id="about"></textarea>
             Цвет глаз:<input type="text" name="color" id="color">
-            <button onClick="editRow()">Изменить строку</button>
+            <button onClick="editRow()" class="editButton">Изменить строку</button>
           </div>
         </div>
     </div>

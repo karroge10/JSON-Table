@@ -13,10 +13,10 @@ function buildTable(data){
     tableData = data
     for (let i = start; i < limit; i++){
         let row =   `<tr class="myBtn" onclick="openModal(this)">
-                        <td>${data[i].name.firstName}</td>
-                        <td>${data[i].name.lastName}</td>
-                        <td class="aboutRow">${data[i].about}</td>
-                        <td class="eyeColor" style="background-color: ${data[i].eyeColor}">${data[i].eyeColor}</td>
+                        <td class="firstNameColumn">${data[i].name.firstName}</td>
+                        <td class="lastNameColumn">${data[i].name.lastName}</td>
+                        <td class="aboutColumn">${data[i].about}</td>
+                        <td class="eyeColorColumn" style="background-color: ${data[i].eyeColor}">${data[i].eyeColor}</td>
                     </tr>`
         table.innerHTML += row;
     }
@@ -73,21 +73,45 @@ changePage = (number) => {
         limit += 10;
         start += 10;
         document.getElementsByClassName('pageNumber')[0].innerHTML = page + 1;
+    
+        // Перестраиваем таблицу с новыми 10 страницами
         buildTable(tableData)
+
+        let visionButton = document.getElementsByClassName('visButton')
+        let visParam;
+
+        // Проверяем у какой колонки в хедере есть show (значит что на прошлых 10 страницах эта колонка была спрятана), и прячем ее еще раз
+        for (let i = 0; i < visionButton.length; i++) {
+            if (visionButton[i].innerHTML === 'show'){
+                visParam = visionButton[i].parentElement.dataset.sort
+                hideColumns(visParam)
+            }
+        }
 
     } else if (number < 0 && page > 1){
         table.replaceChildren()
         limit -= 10;
         start -= 10;
         document.getElementsByClassName('pageNumber')[0].innerHTML -= 1;
+        
         buildTable(tableData)
+
+        let visionButton = document.getElementsByClassName('visButton')
+        let visParam;
+
+        for (let i = 0; i < visionButton.length; i++) {
+            if (visionButton[i].innerHTML === 'show'){
+                visParam = visionButton[i].parentElement.dataset.sort
+                hideColumns(visParam)
+            }
+        }
     }
 }
 
 // Сортируем колонку по нужному параметру, добавляем активный класс для отображения текущей сортировки
 // При повторном нажатии сортировка идет в обратную сторону
 sort = (param) => {
-    let sortParameter = param.dataset.sort
+    let sortParameter = param.parentElement.dataset.sort
     if (sortParameter === 'firstName' || sortParameter === 'lastName') {
         if (param.classList.contains('inc')){
             tableData.sort((a, b) => b.name[sortParameter].localeCompare(a.name[sortParameter]));
@@ -106,7 +130,7 @@ sort = (param) => {
         }
     }
 
-    let sortButtons = document.querySelectorAll('.tableInfoHeader')
+    let sortButtons = document.querySelectorAll('.headerButton')
     sortButtons.forEach(button => {
         button.classList.remove('active')
     });
@@ -118,5 +142,33 @@ sort = (param) => {
     limit = 10
     start = 0
     document.getElementsByClassName('pageNumber')[0].innerHTML = 1
+    let headerButton = document.getElementsByClassName('visButton')
+    for (let i = 0; i < headerButton.length; i++){
+        headerButton[i].innerHTML = 'hide'
+    }
+
     buildTable(tableData)
+}
+
+
+changeVisibility = (param) => {
+    let column = document.getElementsByClassName(param.parentElement.dataset.sort + 'Column')
+    checkVisibility(param, column)
+}
+
+hideColumns = (param) => {
+    let column = document.getElementsByClassName(param + 'Column')
+    checkVisibility(0, column)
+}
+
+checkVisibility = (param, column) => {
+    for (let i = 0; i < column.length; i++){
+        if (column[i].classList.contains('hideText')){    
+            column[i].classList.remove('hideText')
+            param.innerHTML = 'hide'
+        } else{
+            column[i].classList.add('hideText')
+            param.innerHTML = 'show'
+        }
+    }
 }
